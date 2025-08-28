@@ -41,7 +41,7 @@
             <nav class="hidden md:flex space-x-6">
                 <a href="#competitions" class="hover:text-purple-400">Competitions</a>
                 <a href="#prizes" class="hover:text-purple-400">Prizes</a>
-                <a href="#pricing" class="hover:text-purple-400">Register</a>
+                <a href="#registration" class="hover:text-purple-400">Register</a>
                 <a href="#faq" class="hover:text-purple-400">FAQ</a>
                 <a href="#contact" class="hover:text-purple-400">Contact</a>
             </nav>
@@ -56,6 +56,13 @@
             <p class="mt-6 max-w-3xl mx-auto text-gray-400">
                 A full-day, project-based competition to inaugurate the Robotics & Entrepreneurship Clubs. Create, collaborate, and earn leadership opportunities.
             </p>
+            <!-- Register Button -->
+            <a href="#registration" class="mt-8 inline-block px-8 py-4 bg-purple-600 text-white font-semibold rounded-xl shadow-lg hover:bg-purple-700 transition">
+                Register
+            </a>
+        </div>
+    </section>
+
     <!-- Competitions Section -->
     <section id="competitions" class="py-20">
         <div class="container mx-auto px-6">
@@ -125,78 +132,9 @@
     </section>
 
     <!-- Registration -->
-    <section id="pricing" class="py-20">
+    <section id="registration" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-5xl font-extrabold">Register Now</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-gray-400">Free registration! Limited slots available.</p>
             </div>
-            <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl p-8 border border-gray-700 text-center">
-                <p class="text-lg">Registration Fee: <strong class="gradient-text-event">Free</strong></p>
-                <a href="https://chat.whatsapp.com/GDKhxNbl6GHJ1iqowJDI0D" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-green-600 transition">
-                    Join WhatsApp Group
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="section-bg py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-center">Frequently Asked Questions</h2>
-            <div class="mt-12 space-y-6 max-w-3xl mx-auto">
-                <div>
-                    <h3 class="text-xl font-bold">Do I need prior coding experience?</h3>
-                    <p class="text-gray-400">No. We provide crash courses and mentorship for beginners.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold">What if I don’t have a partner?</h3>
-                    <p class="text-gray-400">We will pair you with another student before the competition begins.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold">Will participation certificates be given?</h3>
-                    <p class="text-gray-400">Yes, every participant will receive a digital certificate.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold">Contact Us</h2>
-            <p class="mt-4 text-gray-400">For queries, reach out to the organizers:</p>
-            <p class="mt-2">📧 <a href="mailto:events@vjc.edu" class="text-purple-400">soham.dalvi@vijaybhoomi.edu.in</a></p>
-            <p class="mt-1">📱 +91 8104377935</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-700">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024-26 Vijaybhoomi Junior College Events. Student-led events.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script> 
-        lucide.createIcons(); 
-
-        // Countdown Timer
-        const eventDate = new Date("2025-09-15T09:00:00").getTime();
-        const countdown = document.getElementById("countdown");
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
-            if (distance < 0) {
-                countdown.innerHTML = "The Event Has Started!";
-                return;
-            }
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            countdown.innerHTML = `Starts in: ${days}d ${hours}h ${minutes}m`;
-        }, 1000);
-    </script>
-</body>
-</html>
