@@ -169,35 +169,6 @@
       A full-day, project-based competition to inaugurate the Robotics & Entrepreneurship Clubs. 
       Create, collaborate, and earn leadership opportunities.
     </p>
-    <!-- Register Button -->
-    <a href="#registration" class="btn">Register Now</a>
-  </section>
-
-  <!-- Features Section -->
-  <section id="why">
-    <h2 style="font-size: 32px; font-weight: bold;">Why Join?</h2>
-    <div class="features">
-      <div class="feature-box">
-        <h3>🤖 Robotics</h3>
-        <p>Get hands-on experience building and coding robots with your team.</p>
-      </div>
-      <div class="feature-box">
-        <h3>🚀 Entrepreneurship</h3>
-        <p>Learn how to pitch ideas, plan businesses, and develop leadership skills.</p>
-      </div>
-      <div class="feature-box">
-        <h3>🏆 Leadership</h3>
-        <p>Compete for leadership roles in the clubs and showcase your talent.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Registration Section -->
-  <section id="registration" style="background:#111827;">
-    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 20px;">Register Now</h2>
-    <p style="color: #94a3b8; margin-bottom: 30px;">Fill out the form below to secure your spot!</p>
-  
-
     <!-- Competitions Section -->
     <section id="competitions" class="py-20">
         <div class="container mx-auto px-6">
@@ -267,88 +238,10 @@
     </section>
 
     <!-- Registration -->
-    <section id="pricing" class="py-20">
+    <section id="registration" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
                 <h2 class="text-3xl md:text-5xl font-extrabold">Register Now</h2>
                 <p class="mt-4 max-w-2xl mx-auto text-gray-400">Free registration! Limited slots available.</p>
             </div>
-            <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl p-8 border border-gray-700 text-center">
-                <p class="text-lg">Registration Fee: <strong class="gradient-text-event">Free</strong></p>
-                <a href="https://chat.whatsapp.com/GDKhxNbl6GHJ1iqowJDI0D" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-green-600 transition">
-                    Join WhatsApp Group
-                </a>
-            </div>
-        </div>
-    </section>
-
-  <script>
-    function toggleMenu() {
-      document.getElementById("navLinks").classList.toggle("show");
-    }
-  </script>
-
-</body>
-</html>
-
-
-    <!-- FAQ Section -->
-    <section id="faq" class="section-bg py-20">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-center">Frequently Asked Questions</h2>
-            <div class="mt-12 space-y-6 max-w-3xl mx-auto">
-                <div>
-                    <h3 class="text-xl font-bold">Do I need prior coding experience?</h3>
-                    <p class="text-gray-400">No. We provide crash courses and mentorship for beginners.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold">What if I don’t have a partner?</h3>
-                    <p class="text-gray-400">We will pair you with another student before the competition begins.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold">Will participation certificates be given?</h3>
-                    <p class="text-gray-400">Yes, every participant will receive a digital certificate.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold">Contact Us</h2>
-            <p class="mt-4 text-gray-400">For queries, reach out to the organizers:</p>
-            <p class="mt-2">📧 <a href="mailto:events@vjc.edu" class="text-purple-400">events@vjc.edu</a></p>
-            <p class="mt-1">📱 +91 98765 43210</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-700">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024-26 Vijaybhoomi Junior College Events. Student-led events.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script> 
-        lucide.createIcons(); 
-
-        // Countdown Timer
-        const eventDate = new Date("2025-09-15T09:00:00").getTime();
-        const countdown = document.getElementById("countdown");
-        setInterval(() => {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
-            if (distance < 0) {
-                countdown.innerHTML = "The Event Has Started!";
-                return;
-            }
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            countdown.innerHTML = `Starts in: ${days}d ${hours}h ${minutes}m`;
-        }, 1000);
-    </script>
-</body>
-</html>
+<!-- Competitions Section --> <section id="competitions" class="py-20"> <div class="container mx-auto px-6"> <div class="text-center mb-16"> <h2 class="text-3xl md:text-5xl font-extrabold">The Four Challenges</h2> <p class="mt-4 max-w-2xl mx-auto text-gray-400">Choose any two competitions to showcase your skills.</p> </div> <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition"> <i data-lucide="lightbulb" class="w-12 h-12 text-purple-400 mb-4"></i> <h3 class="text-2xl font-bold">Business Pitch</h3> <p class="mt-2 text-gray-400">Develop a 5-slide pitch deck solving a campus problem. Showcase your entrepreneurial spirit.</p> </div> <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition"> <i data-lucide="camera" class="w-12 h-12 text-purple-400 mb-4"></i> <h3 class="text-2xl font-bold">Photo-Caption</h3> <p class="mt-2 text-gray-400">Capture 5 photos around campus that tell a cohesive story. A test of creativity and storytelling.</p> </div> <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition"> <i data-lucide="code-2" class="w-12 h-12 text-purple-400 mb-4"></i> <h3 class="text-2xl font-bold">Website Development</h3> <p class="mt-2 text-gray-400">After a crash course in HTML/CSS, build and deploy a live profile website. Winners get a premium domain.</p> </div> <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition"> <i data-lucide="brain-circuit" class="w-12 h-12 text-purple-400 mb-4"></i> <h3 class="text-2xl font-bold">Brain Bout Quiz</h3> <p class="mt-2 text-gray-400">A high-speed, multi-round quiz on logic, current events, and pop culture.</p> </div> </div> </div> </section> <!-- Prizes Section --> <section id="prizes" class="section-bg py-20"> <div class="container mx-auto px-6 text-center"> <h2 class="text-3xl md:text-5xl font-extrabold">Prizes & Leadership</h2> <p class="mt-4 max-w-2xl mx-auto text-gray-400">Winners are awarded based on their total score.</p> <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left"> <div class="bg-yellow-500/10 p-8 rounded-2xl border-2 border-yellow-500"> <h3 class="text-2xl font-bold text-yellow-400">1st Place</h3> <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside"> <li><strong>₹2,000 Prize</strong></li> <li>Custom 3D Print</li> <li>Certificate</li> <li>1st Choice Leadership Role</li> </ul> </div> <div class="bg-gray-400/10 p-8 rounded-2xl border border-gray-400"> <h3 class="text-2xl font-bold text-gray-300">2nd Place</h3> <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside"> <li>Custom 3D Print</li> <li>Certificate</li> <li>2nd Choice Leadership Role</li> </ul> </div> <div class="bg-orange-700/10 p-8 rounded-2xl border border-orange-700"> <h3 class="text-2xl font-bold text-orange-500">3rd Place</h3> <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside"> <li>Custom 3D Print</li> <li>Certificate</li> <li>3rd Choice Leadership Role</li> </ul> </div> </div> </div> </section> <!-- Registration --> <section id="pricing" class="py-20"> <div class="container mx-auto px-6"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-5xl font-extrabold">Register Now</h2> <p class="mt-4 max-w-2xl mx-auto text-gray-400">Free registration! Limited slots available.</p> </div> <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl p-8 border border-gray-700 text-center"> <p class="text-lg">Registration Fee: <strong class="gradient-text-event">Free</strong></p> <a href="https://chat.whatsapp.com/GDKhxNbl6GHJ1iqowJDI0D" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-green-600 transition"> Join WhatsApp Group </a> </div> </div> </section> <!-- FAQ Section --> <section id="faq" class="section-bg py-20"> <div class="container mx-auto px-6"> <h2 class="text-3xl md:text-5xl font-extrabold text-center">Frequently Asked Questions</h2> <div class="mt-12 space-y-6 max-w-3xl mx-auto"> <div> <h3 class="text-xl font-bold">Do I need prior coding experience?</h3> <p class="text-gray-400">No. We provide crash courses and mentorship for beginners.</p> </div> <div> <h3 class="text-xl font-bold">What if I don’t have a partner?</h3> <p class="text-gray-400">We will pair you with another student before the competition begins.</p> </div> <div> <h3 class="text-xl font-bold">Will participation certificates be given?</h3> <p class="text-gray-400">Yes, every participant will receive a digital certificate.</p> </div> </div> </div> </section> <!-- Contact Section --> <section id="contact" class="py-20"> <div class="container mx-auto px-6 text-center"> <h2 class="text-3xl md:text-5xl font-extrabold">Contact Us</h2> <p class="mt-4 text-gray-400">For queries, reach out to the organizers:</p> <p class="mt-2">📧 <a href="mailto:events@vjc.edu" class="text-purple-400">soham.dalvi@vijaybhoomi.edu.in</a></p> <p class="mt-1">📱 +91 8104377935</p> </div> </section> <!-- Footer --> <footer class="bg-gray-900 border-t border-gray-700"> <div class="container mx-auto px-6 py-6 text-center text-gray-500"> <p>&copy; 2024-26 Vijaybhoomi Junior College Events. Student-led events.</p> </div> </footer> <!-- Scripts --> <script> lucide.createIcons(); // Countdown Timer const eventDate = new Date("2025-09-15T09:00:00").getTime(); const countdown = document.getElementById("countdown"); setInterval(() => { const now = new Date().getTime(); const distance = eventDate - now; if (distance < 0) { countdown.innerHTML = "The Event Has Started!"; return; } const days = Math.floor(distance / (1000 * 60 * 60 * 24)); const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)); countdown.innerHTML = Starts in: ${days}d ${hours}h ${minutes}m; }, 1000); </script> </body> </html>
