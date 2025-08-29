@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta Tags for SEO and Social Sharing -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vijaybhoomi Junior College Events</title>
@@ -18,114 +17,374 @@
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
 
-    <!-- TailwindCSS + Fonts + Icons -->
+    <!-- TailwindCSS + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Custom Styles -->
+    
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
     <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .hero-bg { background-color: #111827; background-image: radial-gradient(circle at top right, rgba(168, 85, 247, 0.2), transparent 40%), radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.2), transparent 40%); }
-        .gradient-text-event { background: linear-gradient(90deg, #c084fc, #a78bfa, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .section-bg { background-color: rgba(17, 24, 39, 0.5); }
+        /* Base styles */
+        :root {
+            --accent-color: #6d28d9;
+            --accent-light: #8b5cf6;
+            --accent-dark: #4c1d95;
+            --silver-color: #C0C0C0;
+            --silver-light: #E8E8E8;
+            --silver-dark: #A9A9A9;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-light);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero section */
+        .hero {
+            background-image: radial-gradient(circle at 20% 30%, rgba(109, 40, 217, 0.15), transparent 30%),
+                             radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1), transparent 30%),
+                             radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.05), transparent 30%);
+        }
+        
+        /* Section styles */
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+        
+        .accent-gradient {
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+        }
+        
+        /* Animation for competition cards */
+        .competition-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .competition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.3);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(17, 24, 39, 0.98);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        /* FAQ accordion */
+        .faq-item {
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+        
+        /* Scroll progress */
+        .progress-bar {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+            width: 0%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 60;
+            transition: width 0.1s ease;
+        }
+        
+        /* Silver styling */
+        .silver-text {
+            color: #C0C0C0;
+        }
+        
+        .silver-border {
+            border-color: #C0C0C0;
+        }
+        
+        .silver-glow {
+            box-shadow: 0 0 15px rgba(192, 192, 192, 0.3);
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200">
-
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-sm border-b border-gray-700">
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tighter gradient-text-event">VJC Events</a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#competitions" class="hover:text-purple-400">Competitions</a>
-                <a href="#prizes" class="hover:text-purple-400">Prizes</a>
-                <a href="#registration" class="hover:text-purple-400">Register</a>
-                <a href="#faq" class="hover:text-purple-400">FAQ</a>
-                <a href="#contact" class="hover:text-purple-400">Contact</a>
-            </nav>
+            <a href="#" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#competitions" class="nav-link text-white">Competitions</a>
+                <a href="#prizes" class="nav-link text-white">Prizes</a>
+                <a href="#registration" class="nav-link text-white">Register</a>
+                <a href="#faq" class="nav-link text-white">FAQ</a>
+                <a href="#contact" class="nav-link text-white">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menuButton" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
-    </header>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="absolute top-6 right-6 text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-6 text-xl">
+            <a href="#competitions" class="text-white hover:text-purple-400 transition">Competitions</a>
+            <a href="#prizes" class="text-white hover:text-purple-400 transition">Prizes</a>
+            <a href="#registration" class="text-white hover:text-purple-400 transition">Register</a>
+            <a href="#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
+            <a href="#contact" class="text-white hover:text-purple-400 transition">Contact</a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
-    <section class="hero-bg py-20 md:py-28 text-center">
-        <div class="container mx-auto px-6">
-            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter">Vijaybhoomi Junior College Events</h1>
-            <p class="mt-4 text-lg sm:text-xl md:text-2xl font-bold gradient-text-event">Build. Compete. Lead.</p>
-            <p class="mt-6 max-w-3xl mx-auto text-gray-400">
+    <section class="hero pt-32 pb-20" id="hero">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6" data-aos="fade-up">Vijaybhoomi Junior College Events</h1>
+            <p class="text-xl md:text-2xl font-medium text-purple-400 mb-8" data-aos="fade-up" data-aos-delay="200">Build. Compete. Lead.</p>
+            <p class="max-w-3xl mx-auto text-gray-300 mb-10" data-aos="fade-up" data-aos-delay="300">
                 A full-day, project-based competition to inaugurate the Robotics & Entrepreneurship Clubs. Create, collaborate, and earn leadership opportunities.
             </p>
-            <!-- Register Button -->
-            <a href="#registration" class="mt-8 inline-block px-8 py-4 bg-purple-600 text-white font-semibold rounded-xl shadow-lg hover:bg-purple-700 transition">
-                Register
+            
+            <a href="#registration" class="inline-block px-8 py-3 rounded-lg bg-purple-600 text-white font-medium transition hover:bg-purple-700" data-aos="fade-up" data-aos-delay="500">
+                Register Now
             </a>
         </div>
     </section>
 
     <!-- Competitions Section -->
-    <section id="competitions" class="py-20">
+    <section id="competitions" class="py-20 relative">
+        <div class="section-pattern"></div>
         <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-extrabold">The Four Challenges</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-gray-400">Choose any two competitions to showcase your skills.</p>
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">The Four Challenges</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Choose any two competitions to showcase your skills.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition">
-                    <i data-lucide="lightbulb" class="w-12 h-12 text-purple-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold">Business Pitch</h3>
-                    <p class="mt-2 text-gray-400">Develop a 5-slide pitch deck solving a campus problem. Showcase your entrepreneurial spirit.</p>
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="lightbulb" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Business Pitch</h3>
+                    <p class="text-gray-300 mb-4">Develop a 5-slide pitch deck solving a campus problem. Showcase your entrepreneurial spirit.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Entrepreneurship</span>
                 </div>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition">
-                    <i data-lucide="camera" class="w-12 h-12 text-purple-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold">Photo-Caption</h3>
-                    <p class="mt-2 text-gray-400">Capture 5 photos around campus that tell a cohesive story. A test of creativity and storytelling.</p>
+                
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="camera" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Photo-Caption</h3>
+                    <p class="text-gray-300 mb-4">Capture 5 photos around campus that tell a cohesive story. A test of creativity and storytelling.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Creativity</span>
                 </div>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition">
-                    <i data-lucide="code-2" class="w-12 h-12 text-purple-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold">Website Development</h3>
-                    <p class="mt-2 text-gray-400">After a crash course in HTML/CSS, build and deploy a live profile website. Winners get a premium domain.</p>
+                
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="300">
+                    <i data-lucide="code-2" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Website Development</h3>
+                    <p class="text-gray-300 mb-4">After a crash course in HTML/CSS, build and deploy a live profile website. Winners get a premium domain.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Technical</span>
                 </div>
-                <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 hover:border-purple-400 transition">
-                    <i data-lucide="brain-circuit" class="w-12 h-12 text-purple-400 mb-4"></i>
-                    <h3 class="text-2xl font-bold">Brain Bout Quiz</h3>
-                    <p class="mt-2 text-gray-400">A high-speed, multi-round quiz on logic, current events, and pop culture.</p>
+                
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="400">
+                    <i data-lucide="brain-circuit" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Brain Bout Quiz</h3>
+                    <p class="text-gray-300 mb-4">A high-speed, multi-round quiz on logic, current events, and pop culture.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Knowledge</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Prizes Section -->
-    <section id="prizes" class="section-bg py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold">Prizes & Leadership</h2>
-            <p class="mt-4 max-w-2xl mx-auto text-gray-400">Winners are awarded based on their total score.</p>
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="bg-yellow-500/10 p-8 rounded-2xl border-2 border-yellow-500">
-                    <h3 class="text-2xl font-bold text-yellow-400">1st Place</h3>
-                    <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside">
-                        <li><strong>₹2,000 Prize</strong></li>
-                        <li>Custom 3D Print</li>
-                        <li>Certificate</li>
-                        <li>1st Choice Leadership Role</li>
+    <section id="prizes" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Prizes & Leadership</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Winners are awarded based on their total score.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg border-2 border-yellow-500" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-yellow-400">1st Place</h3>
+                        <i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span><strong>₹2,000 Prize</strong></span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Custom 3D Print</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Certificate</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-yellow-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>1st Choice Leadership Role</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="bg-gray-400/10 p-8 rounded-2xl border border-gray-400">
-                    <h3 class="text-2xl font-bold text-gray-300">2nd Place</h3>
-                    <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside">
-                        <li>Custom 3D Print</li>
-                        <li>Certificate</li>
-                        <li>2nd Choice Leadership Role</li>
+                
+                <div class="bg-gray-800 p-6 rounded-lg border-2 silver-border silver-glow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold silver-text">2nd Place</h3>
+                        <i data-lucide="award" class="w-6 h-6 silver-text"></i>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 silver-text mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Custom 3D Print</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 silver-text mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Certificate</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 silver-text mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>2nd Choice Leadership Role</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="bg-orange-700/10 p-8 rounded-2xl border border-orange-700">
-                    <h3 class="text-2xl font-bold text-orange-500">3rd Place</h3>
-                    <ul class="mt-4 space-y-2 text-gray-300 list-disc list-inside">
-                        <li>Custom 3D Print</li>
-                        <li>Certificate</li>
-                        <li>3rd Choice Leadership Role</li>
+                
+                <div class="bg-gray-800 p-6 rounded-lg border-2 border-orange-600" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-orange-400">3rd Place</h3>
+                        <i data-lucide="medal" class="w-6 h-6 text-orange-400"></i>
+                    </div>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-orange-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Custom 3D Print</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-orange-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>Certificate</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check" class="w-5 h-5 text-orange-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                            <span>3rd Choice Leadership Role</span>
+                        </li>
                     </ul>
+                </div>
+            </div>
+            
+            <div class="mt-16" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-6 text-center">Leadership Roles</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i data-lucide="settings" class="w-5 h-5 text-purple-400 mr-2"></i>
+                            <h4 class="font-bold">Club President</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm">Lead all club activities and represent the club in school events.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i data-lucide="megaphone" class="w-5 h-5 text-purple-400 mr-2"></i>
+                            <h4 class="font-bold">Marketing Lead</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm">Handle social media and promotional activities for club events.</p>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <i data-lucide="pencil-ruler" class="w-5 h-5 text-purple-400 mr-2"></i>
+                            <h4 class="font-bold">Technical Lead</h4>
+                        </div>
+                        <p class="text-gray-300 text-sm">Oversee all technical projects and provide guidance to members.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,60 +393,259 @@
     <!-- Registration -->
     <section id="registration" class="py-20">
         <div class="container mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl md:text-5xl font-extrabold">Register Now</h2>
-                <p class="mt-4 max-w-2xl mx-auto text-gray-400">Free registration! Limited slots available.</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Register Now</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Free registration! Limited slots available.</p>
             </div>
-            <div class="max-w-2xl mx-auto bg-gray-800 rounded-2xl p-8 border border-gray-700 text-center">
-                <p class="text-lg">Registration Fee: <strong class="gradient-text-event">Free</strong></p>
-                <a href="https://chat.whatsapp.com/GDKhxNbl6GHJ1iqowJDI0D" target="_blank" rel="noopener noreferrer" class="mt-6 inline-block bg-green-500 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-green-600 transition">
-                    Join WhatsApp Group
-                </a>
+            
+            <div class="max-w-lg mx-auto bg-gray-800 rounded-lg p-8 border border-gray-700" data-aos="fade-up">
+                <div class="text-center">
+                    <i data-lucide="ticket" class="w-12 h-12 text-purple-400 mb-4 mx-auto"></i>
+                    <p class="text-xl font-bold mb-2">Registration Fee: <span class="text-green-400">Free</span></p>
+                    <p class="text-gray-300 mb-6">Join our WhatsApp group for important updates and announcements.</p>
+                    
+                    <a href="https://chat.whatsapp.com/GDKhxNbl6GHJ1iqowJDI0D" target="_blank" rel="noopener noreferrer" 
+                       class="inline-block w-full bg-green-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-green-700 transition">
+                        <div class="flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                            Join WhatsApp Group
+                        </div>
+                    </a>
+                    
+                    <div class="mt-8 bg-gray-700/40 p-4 rounded-lg text-left">
+                        <div class="flex items-center justify-between flex-wrap gap-3">
+                            <div class="flex items-center">
+                                <i data-lucide="calendar" class="w-5 h-5 text-purple-400 mr-2"></i>
+                                <span class="text-sm text-gray-300"></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="users" class="w-5 h-5 text-purple-400 mr-2"></i>
+                                <span class="text-sm text-gray-300"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="section-bg py-20">
+    <section id="faq" class="py-20 bg-gray-900">
         <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-center">Frequently Asked Questions</h2>
-            <div class="mt-12 space-y-6 max-w-3xl mx-auto">
-                <div>
-                    <h3 class="text-xl font-bold">Do I need prior coding experience?</h3>
-                    <p class="text-gray-400">No. We provide crash courses and mentorship for beginners.</p>
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item bg-gray-800 p-4 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-center cursor-pointer">
+                        <h3 class="font-medium">Do I need prior coding experience?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform duration-300 faq-icon"></i>
+                    </div>
+                    <div class="faq-answer mt-2 text-gray-300 text-sm pl-0">
+                        <p>No. We provide crash courses and mentorship for beginners. The competitions are designed to be accessible for everyone, regardless of your technical background.</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold">What if I don’t have a partner?</h3>
-                    <p class="text-gray-400">We will pair you with another student before the competition begins.</p>
+                
+                <div class="faq-item bg-gray-800 p-4 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-center cursor-pointer">
+                        <h3 class="font-medium">What if I don't have a partner?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform duration-300 faq-icon"></i>
+                    </div>
+                    <div class="faq-answer mt-2 text-gray-300 text-sm pl-0">
+                        <p>We will pair you with another student before the competition begins. Just indicate that you need a partner when you register through the WhatsApp group.</p>
+                    </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold">Will participation certificates be given?</h3>
-                    <p class="text-gray-400">Yes, every participant will receive a digital certificate.</p>
+                
+                <div class="faq-item bg-gray-800 p-4 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-center cursor-pointer">
+                        <h3 class="font-medium">Will participation certificates be given?</h3>
+                        <i data-lucide="chevron-down" class="w-5 h-5 text-purple-400 transition-transform duration-300 faq-icon"></i>
+                    </div>
+                    <div class="faq-answer mt-2 text-gray-300 text-sm pl-0">
+                        <p>Yes, every participant will receive a digital certificate. Top performers will receive special recognition certificates in addition to their prizes.</p>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="text-center mt-8" data-aos="fade-up">
+                <a href="#contact" class="text-purple-400 hover:underline">Have more questions? Contact us</a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold">Contact Us</h2>
-            <p class="mt-4 text-gray-400">For queries, reach out to the organizers:</p>
-            <p class="mt-2">📧 <a href="mailto:events@vjc.edu" class="text-purple-400">soham.dalvi@vijaybhoomi.edu.in</a></p>
-            <p class="mt-1">📱 +91 8104377935</p>
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">For queries, reach out to the organizers:</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+                <div class="bg-gray-800 p-6 rounded-lg text-center" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="mail" class="w-8 h-8 text-purple-400 mb-3 mx-auto"></i>
+                    <h3 class="font-bold mb-2">Email</h3>
+                    <a href="mailto:soham.dalvi@vijaybhoomi.edu.in" class="text-gray-300 hover:text-white">soham.dalvi@vijaybhoomi.edu.in</a>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="phone" class="w-8 h-8 text-purple-400 mb-3 mx-auto"></i>
+                    <h3 class="font-bold mb-2">Phone</h3>
+                    <a href="tel:+918104377935" class="text-gray-300 hover:text-white">+91 8104377935</a>
+                </div>
+                
+                <div class="bg-gray-800 p-6 rounded-lg text-center" data-aos="fade-up" data-aos-delay="300">
+                    <i data-lucide="map-pin" class="w-8 h-8 text-purple-400 mb-3 mx-auto"></i>
+                    <h3 class="font-bold mb-2">Location</h3>
+                    <p class="text-gray-300">Vijaybhoomi University Campus</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 border-t border-gray-700">
-        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
-            <p>&copy; 2024-26 Vijaybhoomi Junior College Events. Student-led events.</p>
+    <footer class="bg-gray-900 border-t border-gray-800 py-10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h4 class="text-lg font-bold text-white mb-2">VJC<span class="text-purple-400">Events</span></h4>
+                    <p class="text-gray-400 text-sm">Vijaybhoomi Junior College Events</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#competitions" class="text-gray-400 hover:text-white">Competitions</a>
+                    <a href="#prizes" class="text-gray-400 hover:text-white">Prizes</a>
+                    <a href="#registration" class="text-gray-400 hover:text-white">Register</a>
+                    <a href="#faq" class="text-gray-400 hover:text-white">FAQ</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white">Contact</a>
+                </div>
+                
+                <div class="mt-6 md:mt-0 flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i data-lucide="facebook" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i data-lucide="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-500 text-sm">&copy; 2024-26 Vijaybhoomi Junior College Events. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- Back to top button -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-purple-600 text-white p-3 rounded-full shadow-lg opacity-0 transition-opacity duration-300 hover:bg-purple-700">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
+
     <!-- Scripts -->
-    <script> 
-        lucide.createIcons(); 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize icons
+            lucide.createIcons();
+            
+            // Initialize AOS animation library
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true
+            });
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Update progress bar
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollProgress = (window.scrollY / windowHeight) * 100;
+                document.getElementById('progressBar').style.width = scrollProgress + '%';
+                
+                // Show/hide back to top button
+                if (window.scrollY > 300) {
+                    document.getElementById('backToTop').style.opacity = "1";
+                } else {
+                    document.getElementById('backToTop').style.opacity = "0";
+                }
+            });
+            
+            // Back to top functionality
+            document.getElementById('backToTop').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Mobile menu
+            const menuButton = document.getElementById('menuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMenu = document.getElementById('closeMenu');
+            
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.add('open');
+            });
+            
+            closeMenu.addEventListener('click', function() {
+                mobileMenu.classList.remove('open');
+            });
+            
+            // Close menu when clicking on links
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('open');
+                });
+            });
+            
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.cursor-pointer');
+                const icon = item.querySelector('.faq-icon');
+                
+                question.addEventListener('click', function() {
+                    item.classList.toggle('active');
+                    
+                    if (item.classList.contains('active')) {
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0)';
+                    }
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
