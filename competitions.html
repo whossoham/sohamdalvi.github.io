@@ -1,30 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Competitions - Soham Dalvi</title>
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competitions | VJC Events</title>
+    <meta name="description" content="Explore the competitions at Vijaybhoomi Junior College events. Challenges in business, creativity, tech, and knowledge.">
+    <meta name="keywords" content="Robotics, Entrepreneurship, Junior College, Events, Leadership, Competition, Business Pitch, Website Development">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'&gt;VJC&lt;/text&gt;&lt;text x='102' y='58' font-size='27' font-family='Arial' font-weight='900' fill='%238b5cf6' text-anchor='middle'&gt;Events&lt;/text&gt;&lt;/svg&gt;">
+    
+    <!-- TailwindCSS + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --accent-color: #6d28d9;
+            --accent-light: #8b5cf6;
+            --accent-dark: #4c1d95;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-light);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+        .section-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+        .competition-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .competition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.3);
+        }
+        .mobile-menu {
+            position: fixed; top: 0; right: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.98);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        .progress-bar {
+            height: 3px; background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+            width: 0%; position: fixed; top: 0; left: 0; z-index: 60; transition: width 0.1s ease;
+        }
+    </style>
+</head>
 <body>
-    <section id="events-list" class="py-20 pt-32">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-white">Home</a>
+                <a href="events.html" class="nav-link text-white active">Events</a>
+                <a href="clubs.html" class="nav-link text-white">Clubs</a>
+                <a href="index.html#faq" class="nav-link text-white">FAQ</a>
+                <a href="index.html#contact" class="nav-link text-white">Contact</a>
+            </div>
+            <button id="menuButton" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="absolute top-6 right-6 text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-6 text-xl">
+            <a href="index.html" class="text-white hover:text-purple-400 transition">Home</a>
+            <a href="events.html" class="text-white hover:text-purple-400 transition">Events</a>
+            <a href="clubs.html" class="text-white hover:text-purple-400 transition">Clubs</a>
+            <a href="index.html#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
+            <a href="index.html#contact" class="text-white hover:text-purple-400 transition">Contact</a>
+        </div>
+    </div>
+
+    <!-- Competitions Section -->
+    <section id="competitions" class="pt-32 pb-20 relative">
+        <div class="section-pattern"></div>
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">College Competitions</h2>
-                <p class="text-gray-300 max-w-2xl mx-auto">The central calendar for all challenges and workshops.</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">The Four Challenges</h1>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg">Choose any two competitions to showcase your skills and compete for the top prizes.</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up">
-                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Robotics Society</span>
-                    <h3 class="text-xl font-bold mt-3 mb-2">Annual Robo-Wars</h3>
-                    <p class="text-gray-300">Compete to build the most resilient robot.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="lightbulb" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Business Pitch</h3>
+                    <p class="text-gray-300 mb-4">Develop a 5-slide pitch deck solving a campus problem. Showcase your entrepreneurial spirit.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Entrepreneurship</span>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="100">
-                    <span class="inline-block bg-yellow-800/50 text-yellow-400 px-3 py-1 text-sm rounded-full">Business Society</span>
-                    <h3 class="text-xl font-bold mt-3 mb-2">Campus Startup Pitch</h3>
-                    <p class="text-gray-300">Pitch your innovative solution to a panel of judges.</p>
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="camera" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Photo-Caption</h3>
+                    <p class="text-gray-300 mb-4">Capture 5 photos around campus that tell a cohesive story. A test of creativity and storytelling.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Creativity</span>
                 </div>
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="300">
+                    <i data-lucide="code-2" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Website Development</h3>
+                    <p class="text-gray-300 mb-4">After a crash course in HTML/CSS, build and deploy a live profile website. Winners get a premium domain.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Technical</span>
                 </div>
+                <div class="competition-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="400">
+                    <i data-lucide="brain-circuit" class="w-8 h-8 text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2">Brain Bout Quiz</h3>
+                    <p class="text-gray-300 mb-4">A high-speed, multi-round quiz on logic, current events, and pop culture.</p>
+                    <span class="inline-block bg-purple-900/50 text-purple-300 px-3 py-1 text-sm rounded-full">Knowledge</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    </body>
+    <!-- Prizes Section -->
+    <section id="prizes" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Prizes & Leadership</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Winners are awarded based on their total score across the events, earning not just prizes but key leadership roles in our clubs.</p>
+            </div>
+            <!-- Add prize details here if needed -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-10 bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
+            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:events@vjcevents.tech" class="text-purple-400 hover:underline">events@vjcevents.tech</a></p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        lucide.createIcons();
+        
+        // Common JS for navbar, mobile menu, and progress bar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (window.scrollY / scrollTotal) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
 </html>
