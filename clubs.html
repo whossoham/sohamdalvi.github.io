@@ -1,31 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Clubs - Soham Dalvi</title>
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clubs | VJC Events</title>
+    <meta name="description" content="Discover student-led clubs at Vijaybhoomi Junior College: Robotics Society, Climate Change Society, and Business Society.">
+    <meta name="keywords" content="Robotics Society, Climate Change Society, Business Society, Student Clubs, VJC">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'&gt;VJC&lt;/text&gt;&lt;text x='102' y='58' font-size='27' font-family='Arial' font-weight='900' fill='%238b5cf6' text-anchor='middle'&gt;Events&lt;/text&gt;&lt;/svg&gt;">
+    
+    <!-- TailwindCSS + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --accent-color: #6d28d9;
+            --accent-light: #8b5cf6;
+            --accent-dark: #4c1d95;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--accent-light);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        section {
+            position: relative;
+            overflow: hidden;
+        }
+        .club-card, .event-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .club-card:hover, .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.3);
+        }
+        .mobile-menu {
+            position: fixed; top: 0; right: 0; width: 100%; height: 100%;
+            background-color: rgba(17, 24, 39, 0.98);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 100;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        .progress-bar {
+            height: 3px; background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+            width: 0%; position: fixed; top: 0; left: 0; z-index: 60; transition: width 0.1s ease;
+        }
+        .section-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+    </style>
+</head>
 <body>
-    <section id="clubs-list" class="py-20 pt-32">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-white">Home</a>
+                <a href="events.html" class="nav-link text-white">Events</a>
+                <a href="clubs.html" class="nav-link text-white active">Clubs</a>
+                <a href="index.html#faq" class="nav-link text-white">FAQ</a>
+                <a href="index.html#contact" class="nav-link text-white">Contact</a>
+            </div>
+            <button id="menuButton" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <button id="closeMenu" class="absolute top-6 right-6 text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="flex flex-col items-center space-y-6 text-xl">
+            <a href="index.html" class="text-white hover:text-purple-400 transition">Home</a>
+            <a href="events.html" class="text-white hover:text-purple-400 transition">Events</a>
+            <a href="clubs.html" class="text-white hover:text-purple-400 transition">Clubs</a>
+            <a href="index.html#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
+            <a href="index.html#contact" class="text-white hover:text-purple-400 transition">Contact</a>
+        </div>
+    </div>
+
+    <!-- Clubs Section -->
+    <section id="clubs" class="pt-32 pb-20 relative">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Student Societies</h2>
-                <p class="text-gray-300 max-w-2xl mx-auto">Find your passion and collaborate with like-minded peers.</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Student-Led Societies</h1>
+                <p class="text-gray-300 max-w-2xl mx-auto text-lg">Innovate, collaborate, and lead in our student-run clubs, each hosting their own unique events and projects.</p>
             </div>
-            <div class="space-y-12">
-                <div data-aos="fade-up">
-                    <h3 class="text-2xl font-bold text-purple-400">Robotics Society</h3>
-                    <p class="text-gray-300 mt-2">The hub for students passionate about automation, programming, and engineering.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Robotics Society -->
+                <div class="club-card bg-gray-800 p-6 rounded-lg border border-gray-700 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <i data-lucide="cpu" class="w-10 h-10 text-purple-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Robotics Society</h3>
+                    <p class="text-gray-300 mb-6 flex-grow">From building autonomous bots to competing in high-tech challenges, this is the hub for all things mechatronics and automation. Perfect for aspiring engineers and innovators.</p>
+                    <a href="#club-events" class="mt-auto inline-block text-center px-6 py-2 rounded-lg bg-purple-600 text-white font-medium transition hover:bg-purple-700">
+                        View Club Events
+                    </a>
                 </div>
-                <div data-aos="fade-up">
-                    <h3 class="text-2xl font-bold text-green-400">Climate Change Society</h3>
-                    <p class="text-gray-300 mt-2">Promoting sustainability and environmental awareness across campus.</p>
+                <!-- Climate Change Society -->
+                <div class="club-card bg-gray-800 p-6 rounded-lg border border-gray-700 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <i data-lucide="leaf" class="w-10 h-10 text-purple-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Climate Change Society</h3>
+                    <p class="text-gray-300 mb-6 flex-grow">Dedicated to creating sustainable solutions and raising environmental awareness through hands-on projects, expert talks, and campus-wide green initiatives.</p>
+                    <a href="#club-events" class="mt-auto inline-block text-center px-6 py-2 rounded-lg bg-purple-600 text-white font-medium transition hover:bg-purple-700">
+                        View Club Events
+                    </a>
                 </div>
-                <div data-aos="fade-up">
-                    <h3 class="text-2xl font-bold text-yellow-400">Business Society</h3>
-                    <p class="text-gray-300 mt-2">Fostering the next generation of entrepreneurs and business leaders.</p>
+                <!-- Business Society -->
+                <div class="club-card bg-gray-800 p-6 rounded-lg border border-gray-700 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <i data-lucide="briefcase" class="w-10 h-10 text-purple-400 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Business Society</h3>
+                    <p class="text-gray-300 mb-6 flex-grow">For aspiring entrepreneurs and future business leaders. Engage in real-world case studies, intense pitch competitions, and workshops with industry professionals.</p>
+                    <a href="#club-events" class="mt-auto inline-block text-center px-6 py-2 rounded-lg bg-purple-600 text-white font-medium transition hover:bg-purple-700">
+                        View Club Events
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    </body>
+    <!-- Featured Club Events Section -->
+    <section id="club-events" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Club Events</h2>
+                <p class="text-gray-300 max-w-2xl mx-auto">Get a glimpse of the exciting activities hosted by our societies.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event 1: Robotics -->
+                <div class="event-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <i data-lucide="shield-half" class="w-8 h-8 text-purple-400"></i>
+                        <span class="inline-block bg-green-900/50 text-green-300 px-3 py-1 text-sm rounded-full font-medium">Upcoming</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Battle Bots Competition</h4>
+                    <p class="text-sm text-purple-300 mb-3">Hosted by Robotics Society</p>
+                    <p class="text-gray-400 text-sm">Design, build, and battle your own remote-controlled robot in an arena of champions. May the best bot win!</p>
+                    <p class="text-xs text-gray-500 mt-4 font-medium tracking-wider uppercase">October 18, 2025</p>
+                </div>
+                 <!-- Event 2: Business -->
+                <div class="event-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <i data-lucide="rocket" class="w-8 h-8 text-purple-400"></i>
+                         <span class="inline-block bg-green-900/50 text-green-300 px-3 py-1 text-sm rounded-full font-medium">Upcoming</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Startup Pitch Night</h4>
+                    <p class="text-sm text-purple-300 mb-3">Hosted by Business Society</p>
+                    <p class="text-gray-400 text-sm">Pitch your innovative business idea to a panel of judges for a chance to win seed funding and mentorship.</p>
+                     <p class="text-xs text-gray-500 mt-4 font-medium tracking-wider uppercase">October 25, 2025</p>
+                </div>
+                <!-- Event 3: Climate Change -->
+                <div class="event-card bg-gray-800 p-6 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="300">
+                     <div class="flex justify-between items-start mb-4">
+                        <i data-lucide="recycle" class="w-8 h-8 text-purple-400"></i>
+                        <span class="inline-block bg-gray-700/50 text-gray-400 px-3 py-1 text-sm rounded-full font-medium">Completed</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Campus Sustainability Audit</h4>
+                    <p class="text-sm text-purple-300 mb-3">Hosted by Climate Change Society</p>
+                    <p class="text-gray-400 text-sm">Teams worked together to analyze the campus's energy usage and waste management, presenting a report to the administration.</p>
+                     <p class="text-xs text-gray-500 mt-4 font-medium tracking-wider uppercase">September 27, 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Join Section -->
+    <section id="how-to-join" class="py-20 relative">
+        <div class="section-pattern"></div>
+        <div class="container mx-auto px-6 text-center">
+             <div class="max-w-2xl mx-auto bg-gray-800 p-8 md:p-12 rounded-lg border border-gray-700" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Join?</h2>
+                <p class="text-gray-300 mb-8">
+                    Becoming a part of our clubs is the first step towards an exciting journey of learning and leadership. Attend our next introductory meeting to get started!
+                </p>
+                <a href="index.html#registration" class="inline-block px-8 py-3 rounded-lg bg-purple-600 text-white font-medium transition hover:bg-purple-700">
+                    Find Registration Info
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-10 bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
+            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:events@vjcevents.tech" class="text-purple-400 hover:underline">events@vjcevents.tech</a></p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+
+        lucide.createIcons();
+        
+        // Common JS for navbar, mobile menu, and progress bar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        });
+
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (window.scrollY / scrollTotal) * 100;
+            progressBar.style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
 </html>
+
