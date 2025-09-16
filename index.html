@@ -8,7 +8,7 @@
     <meta name="keywords" content="Robotics, Entrepreneurship, Climate Change, Junior College, Events, Leadership, Competition">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'&gt;VJC&lt;/text&gt;&lt;text x='102' y='58' font-size='27' font-family='Arial' font-weight='900' fill='%238b5cf6' text-anchor='middle'&gt;Events&lt;/text&gt;&lt;/svg&gt;">
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='%236d28d9'&gt;VJC&lt;/text&gt;&lt;/svg&gt;">
 
     <!-- TailwindCSS + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -25,6 +25,9 @@
             --accent-color: #6d28d9;
             --accent-light: #8b5cf6;
             --accent-dark: #4c1d95;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -122,10 +125,9 @@
             <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link text-white active">Home</a>
-                <a href="events.html" class="nav-link text-white">Events</a>
-                <a href="clubs.html" class="nav-link text-white">Clubs</a>
+                <a href="#hub" class="nav-link text-white">Events & Clubs</a>
                 <a href="#faq" class="nav-link text-white">FAQ</a>
-                <a href="#contact" class="nav-link text-white">Contact</a>
+                <a href="contact.html" class="nav-link text-white">Contact</a>
             </div>
             <button id="menuButton" class="md:hidden text-white focus:outline-none">
                 <i data-lucide="menu" class="w-6 h-6"></i>
@@ -140,10 +142,9 @@
         </button>
         <div class="flex flex-col items-center space-y-6 text-xl">
             <a href="index.html" class="text-white hover:text-purple-400 transition">Home</a>
-            <a href="events.html" class="text-white hover:text-purple-400 transition">Events</a>
-            <a href="clubs.html" class="text-white hover:text-purple-400 transition">Clubs</a>
+            <a href="#hub" class="text-white hover:text-purple-400 transition">Events & Clubs</a>
             <a href="#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
-            <a href="#contact" class="text-white hover:text-purple-400 transition">Contact</a>
+            <a href="contact.html" class="text-white hover:text-purple-400 transition">Contact</a>
         </div>
     </div>
 
@@ -205,7 +206,7 @@
                        class="inline-block w-full bg-green-600 text-white font-medium py-3 px-6 rounded-lg hover:bg-green-700 transition">
                         <div class="flex items-center justify-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.125-.895-.536-1.503-1.189-1.715-1.485-.212-.297-.015-.46.134-.61.135-.135.297-.354.446-.533.149-.178.198-.297.297-.495.099-.198.05-.371-.025-.52s-.669-1.611-.916-2.206c-.246-.595-.494-.515-.669-.525-.16-.01-.358-.01-.557-.01s-.546.075-.82.371c-.273.297-1.045 1.018-1.045 2.479s1.07 2.873 1.218 3.07c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.075-.124-.272-.198-.57-.347z"/>
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.485-.881-.795-1.48-1.765-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.58-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
                             </svg>
                             Join WhatsApp Group
                         </div>
@@ -255,11 +256,11 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Footer -->
     <footer id="contact" class="py-10 bg-gray-800 border-t border-gray-700">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
-            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:soham.dalvi@vijaybhoomi.edu.in" class="text-purple-400 hover:underline">soham.dalvi@vijaybhoomi.edu.in</a></p>
+            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:events@vjcevents.tech" class="text-purple-400 hover:underline">events@vjcevents.tech</a></p>
         </div>
     </footer>
 
