@@ -73,16 +73,6 @@
             position: relative;
             overflow: hidden;
         }
-        .section-pattern {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            background-image: linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-        }
         .mobile-menu {
             position: fixed; top: 0; right: 0; width: 100%; height: 100%;
             background-color: rgba(17, 24, 39, 0.98);
@@ -125,8 +115,9 @@
             <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link text-white active">Home</a>
-                <a href="#hub" class="nav-link text-white">Events & Clubs</a>
-                <a href="#faq" class="nav-link text-white">FAQ</a>
+                <a href="events.html" class="nav-link text-white">Events</a>
+                <a href="clubs.html" class="nav-link text-white">Clubs</a>
+                <a href="news.html" class="nav-link text-white">News</a>
                 <a href="contact.html" class="nav-link text-white">Contact</a>
             </div>
             <button id="menuButton" class="md:hidden text-white focus:outline-none">
@@ -142,8 +133,9 @@
         </button>
         <div class="flex flex-col items-center space-y-6 text-xl">
             <a href="index.html" class="text-white hover:text-purple-400 transition">Home</a>
-            <a href="#hub" class="text-white hover:text-purple-400 transition">Events & Clubs</a>
-            <a href="#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
+            <a href="events.html" class="text-white hover:text-purple-400 transition">Events</a>
+            <a href="clubs.html" class="text-white hover:text-purple-400 transition">Clubs</a>
+            <a href="news.html" class="text-white hover:text-purple-400 transition">News</a>
             <a href="contact.html" class="text-white hover:text-purple-400 transition">Contact</a>
         </div>
     </div>
@@ -190,7 +182,6 @@
         </div>
     </section>
     
-    </section>
     <section id="registration" class="py-20">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12" data-aos="fade-up">
@@ -231,7 +222,6 @@
                         <div class="faq-answer px-6 text-gray-300">
                             Participation is open to all students of Vijaybhoomi Junior College.
                         </div>
-
                     </div>
                     <div class="faq-item bg-gray-800">
                         <div class="faq-question flex justify-between items-center p-6">
@@ -257,10 +247,9 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="py-10 bg-gray-800 border-t border-gray-700">
+    <footer class="py-10 bg-gray-800 border-t border-gray-700">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
-            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:events@vjcevents.tech" class="text-purple-400 hover:underline">events@vjcevents.tech</a></p>
         </div>
     </footer>
 
