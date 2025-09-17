@@ -51,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const title = document.getElementById('title').value;
         const content = document.getElementById('content').value;
+        const imageUrl = document.getElementById('imageUrl').value;
 
         // Get existing news from localStorage or initialize an empty array
         const news = JSON.parse(localStorage.getItem('vjcNews')) || [];
@@ -58,7 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newArticle = {
             date: new Date().toISOString().split('T')[0], // Format as YYYY-MM-DD
             title: title,
-            content: content
+            content: content,
+            imageUrl: imageUrl || '' // Save image URL, default to empty string
         };
 
         // Add the new article to the beginning of the array
