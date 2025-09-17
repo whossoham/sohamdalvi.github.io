@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact & Credits - Vijaybhoomi Junior College Events</title>
+    <title>Contact & Credits - VJC Events</title>
     <meta name="description" content="Contact information and credits for the VJC Events website.">
-    <meta name="keywords" content="Contact, Credits, About, Vijaybhoomi Junior College, Soham Kailas Dalvi, Dhruvheith Chheda">
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='%236d28d9'&gt;VJC&lt;/text&gt;&lt;/svg&gt;">
@@ -24,70 +23,49 @@
         :root {
             --accent-color: #6d28d9;
             --accent-light: #8b5cf6;
-            --accent-dark: #4c1d95;
         }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #111827;
             color: #fff;
-            overflow-x: hidden;
         }
         .navbar {
             background-color: rgba(17, 24, 39, 0.8);
             backdrop-filter: blur(8px);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 50;
-            transition: all 0.3s ease;
         }
-        .navbar.scrolled {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
-        }
+        .nav-link { position: relative; }
         .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background-color: var(--accent-light);
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: var(--accent-light);
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .mobile-menu {
-            position: fixed; top: 0; right: 0; width: 100%; height: 100%;
             background-color: rgba(17, 24, 39, 0.98);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 100;
-            display: flex; flex-direction: column; justify-content: center;
+            transform: translateX(100%); transition: transform 0.3s ease;
         }
         .mobile-menu.open { transform: translateX(0); }
-        .progress-bar {
-            height: 3px; background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
-            width: 0%; position: fixed; top: 0; left: 0; z-index: 60; transition: width 0.1s ease;
+        .credit-card {
+            background-color: #1f2937;
+            border: 1px solid #374151;
+            transition: all 0.3s ease;
+        }
+        .credit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-light);
         }
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
-    
     <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar sticky top-0 z-50" id="navbar">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="nav-link text-white">Home</a>
-                <a href="index.html#hub" class="nav-link text-white">Events & Clubs</a>
-                <a href="index.html#faq" class="nav-link text-white">FAQ</a>
+                <a href="events.html" class="nav-link text-white">Events</a>
+                <a href="clubs.html" class="nav-link text-white">Clubs</a>
+                <a href="news.html" class="nav-link text-white">News</a>
                 <a href="contact.html" class="nav-link text-white active">Contact</a>
             </div>
             <button id="menuButton" class="md:hidden text-white focus:outline-none">
@@ -97,122 +75,97 @@
     </nav>
 
     <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu">
-        <button id="closeMenu" class="absolute top-6 right-6 text-white">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full z-100 flex flex-col justify-center items-center">
+        <button id="closeMenu" class="absolute top-6 right-6 text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
         <div class="flex flex-col items-center space-y-6 text-xl">
-            <a href="index.html" class="text-white hover:text-purple-400 transition">Home</a>
-            <a href="index.html#hub" class="text-white hover:text-purple-400 transition">Events & Clubs</a>
-            <a href="index.html#faq" class="text-white hover:text-purple-400 transition">FAQ</a>
-            <a href="contact.html" class="text-purple-400 transition">Contact</a>
+            <a href="index.html" class="text-white hover:text-purple-400">Home</a>
+            <a href="events.html" class="text-white hover:text-purple-400">Events</a>
+            <a href="clubs.html" class="text-white hover:text-purple-400">Clubs</a>
+            <a href="news.html" class="text-white hover:text-purple-400">News</a>
+            <a href="contact.html" class="text-purple-400">Contact</a>
         </div>
     </div>
 
     <!-- Main Content Section -->
-    <section class="pt-32 pb-20 bg-gray-900">
+    <main class="pt-24 pb-20 bg-gray-900">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact & Credits</h1>
-                <p class="text-gray-300 max-w-2xl mx-auto">Get in touch with us and see who made this website possible.</p>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h1>
+                <p class="text-gray-300 max-w-2xl mx-auto">We'd love to hear from you. Find our contact details and website credits below.</p>
             </div>
 
-            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
-                <!-- Contact & About Info -->
-                <div data-aos="fade-up" data-aos-delay="100">
-                    <!-- About Section -->
-                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700 mb-8">
-                        <div class="flex items-center mb-4">
-                            <i data-lucide="info" class="w-8 h-8 text-purple-400 mr-4"></i>
-                            <h2 class="text-2xl font-bold">About This Website</h2>
-                        </div>
-                        <p class="text-gray-300">
-                            This platform is the official hub for all student-led club activities and events at Vijaybhoomi Junior College. We aim to provide a centralized place to create, collaborate, and compete.
-                        </p>
+            <!-- About & Contact Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
+                <!-- About Section -->
+                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700" data-aos="fade-right">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="info" class="w-8 h-8 text-purple-400 mr-4"></i>
+                        <h2 class="text-2xl font-bold">About This Platform</h2>
                     </div>
+                    <p class="text-gray-300">
+                        This platform is the official hub for all student-led club activities and events at Vijaybhoomi Junior College. Our goal is to provide a centralized space to create, collaborate, and compete.
+                    </p>
+                </div>
+                <!-- Contact Section -->
+                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700" data-aos="fade-left">
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="mail" class="w-8 h-8 text-purple-400 mr-4"></i>
+                        <h2 class="text-2xl font-bold">Contact Us</h2>
+                    </div>
+                    <p class="text-gray-300">For any questions, suggestions, or inquiries, please feel free to reach out via email.</p>
+                    <p class="mt-4">
+                        <a href="mailto:events@vjcevents.tech" class="font-medium text-purple-400 hover:text-purple-300 transition-colors text-lg">events@vjcevents.tech</a>
+                    </p>
+                </div>
+            </div>
 
-                    <!-- Contact Section -->
-                    <div class="bg-gray-800 p-8 rounded-lg border border-gray-700">
-                        <div class="flex items-center mb-4">
-                            <i data-lucide="mail" class="w-8 h-8 text-purple-400 mr-4"></i>
-                            <h2 class="text-2xl font-bold">Get In Touch</h2>
-                        </div>
-                        <p class="text-gray-300">For any questions, suggestions, or inquiries, please feel free to reach out to us via email.</p>
-                        <p class="mt-4">
-                            <a href="mailto:events@vjcevents.tech" class="font-medium text-purple-400 hover:text-purple-300 transition-colors">events@vjcevents.tech</a>
-                        </p>
+            <!-- Credits Section -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl font-bold">Website Credits</h2>
+                <p class="text-gray-400 mt-2">Designed and developed by</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <!-- Soham Dalvi -->
+                <div class="credit-card text-center p-8 rounded-lg" data-aos="zoom-in">
+                    <h3 class="text-2xl font-bold mb-2">Soham Kailas Dalvi</h3>
+                    <p class="text-purple-400 font-medium mb-4">Lead Developer</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="https://github.com/whossoham" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white">
+                            <i data-lucide="github" class="w-6 h-6"></i>
+                        </a>
                     </div>
                 </div>
-
-                <!-- Credits Section -->
-                <div class="bg-gray-800 p-8 rounded-lg border border-gray-700" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex items-center mb-4">
-                        <i data-lucide="code-2" class="w-8 h-8 text-purple-400 mr-4"></i>
-                        <h2 class="text-2xl font-bold">Website Credits</h2>
+                <!-- Dhruvheith Chheda -->
+                <div class="credit-card text-center p-8 rounded-lg" data-aos="zoom-in" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-2">Dhruvheith Chheda</h3>
+                    <p class="text-purple-400 font-medium mb-4">Developer</p>
+                     <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i data-lucide="github" class="w-6 h-6"></i>
+                        </a>
                     </div>
-                    <p class="text-gray-300 mb-6">This website was designed and developed by:</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-center">
-                            <i data-lucide="user-circle" class="w-6 h-6 text-gray-400 mr-3"></i>
-                            <span class="text-lg font-medium">Soham Kailas Dalvi</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i data-lucide="user-circle" class="w-6 h-6 text-gray-400 mr-3"></i>
-                            <span class="text-lg font-medium">Dhruvheith Chheda</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
     <!-- Footer -->
     <footer class="py-10 bg-gray-800 border-t border-gray-700">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
-            <p class="text-sm mt-2">For inquiries, please contact us at <a href="mailto:events@vjcevents.tech" class="text-purple-400 hover:underline">events@vjcevents.tech</a></p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50,
-        });
-
+        AOS.init({ duration: 800, once: true, offset: 50 });
         lucide.createIcons();
-
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
         // Mobile menu toggle
         const menuButton = document.getElementById('menuButton');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-
         menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
         closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.remove('open'));
-        });
-        
-        // Progress bar
-        const progressBar = document.getElementById('progressBar');
-        window.addEventListener('scroll', () => {
-            const scrollTotal = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (window.scrollY / scrollTotal) * 100;
-            progressBar.style.width = scrollPercent + '%';
-        });
     </script>
 </body>
 </html>
