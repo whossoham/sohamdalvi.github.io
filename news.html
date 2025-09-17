@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Updates - VJC Events</title>
+    <meta name="description" content="Latest news and updates from VJC Events, presented in an interactive terminal.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='%236d28d9'&gt;VJC&lt;/text&gt;&lt;/svg&gt;">
+
+    <!-- TailwindCSS + Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+    <style>
+        :root {
+            --accent-color: #6d28d9;
+            --accent-light: #8b5cf6;
+            --terminal-bg: #1e293b;
+            --terminal-header: #334155;
+            --text-green: #34d399;
+            --text-blue: #60a5fa;
+            --text-yellow: #facc15;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827;
+            color: #e5e7eb;
+        }
+        .navbar {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -4px; left: 0; background-color: var(--accent-light);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .mobile-menu {
+            background-color: rgba(17, 24, 39, 0.98);
+            transform: translateX(100%); transition: transform 0.3s ease;
+        }
+        .mobile-menu.open { transform: translateX(0); }
+        
+        .terminal {
+            font-family: 'Fira Code', monospace;
+            background-color: var(--terminal-bg);
+            border: 1px solid var(--terminal-header);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .terminal-header {
+            background-color: var(--terminal-header);
+        }
+        .terminal-body {
+            height: 60vh;
+            overflow-y: auto;
+        }
+        .terminal-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #e5e7eb;
+            width: 100%;
+            font-family: 'Fira Code', monospace;
+        }
+        .prompt::before {
+            content: 'VJC_Events@> ';
+            color: var(--accent-light);
+            -webkit-user-select: none; user-select: none;
+        }
+        .cursor {
+            display: inline-block;
+            width: 0.6em;
+            height: 1.2em;
+            background-color: #e5e7eb;
+            animation: blink 1s steps(1) infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar sticky top-0 z-50" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="nav-link text-white">Home</a>
+                <a href="events.html" class="nav-link text-white">Events</a>
+                <a href="clubs.html" class="nav-link text-white">Clubs</a>
+                <a href="news.html" class="nav-link text-white active">News</a>
+                <a href="contact.html" class="nav-link text-white">Contact</a>
+            </div>
+            <button id="menuButton" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full z-100 flex flex-col justify-center items-center">
+        <button id="closeMenu" class="absolute top-6 right-6 text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+        <div class="flex flex-col items-center space-y-6 text-xl">
+            <a href="index.html" class="text-white hover:text-purple-400">Home</a>
+            <a href="events.html" class="text-white hover:text-purple-400">Events</a>
+            <a href="clubs.html" class="text-white hover:text-purple-400">Clubs</a>
+            <a href="news.html" class="text-purple-400">News</a>
+            <a href="contact.html" class="text-white hover:text-purple-400">Contact</a>
+        </div>
+    </div>
+
+    <!-- Main Content Section -->
+    <main class="pt-16 pb-20">
+        <div class="container mx-auto px-6">
+            <div class="terminal max-w-5xl mx-auto rounded-lg overflow-hidden" data-aos="fade-up" data-aos-duration="1000">
+                <div class="terminal-header p-3 flex items-center">
+                    <div class="flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <p class="flex-1 text-center text-sm text-gray-400">VJC News Feed</p>
+                </div>
+                <div id="terminalBody" class="terminal-body p-4 text-sm md:text-base" onclick="document.getElementById('terminalInput').focus()">
+                    <div id="output"></div>
+                    <div class="flex items-center">
+                        <span class="prompt"></span>
+                        <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" autofocus />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-gray-800 border-t border-gray-700">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 50 });
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('menuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+        // --- Interactive Terminal Logic ---
+        const input = document.getElementById('terminalInput');
+        const output = document.getElementById('output');
+        const terminalBody = document.getElementById('terminalBody');
+        
+        const defaultNews = [
+            { date: '2024-09-15', title: 'Tech Titans Registration Open', content: 'Registration for the annual Tech Titans Challenge is now officially open. Assemble your teams and prepare for a 12-hour coding marathon.' },
+            { date: '2024-09-10', title: 'Welcome & Club Meetings', content: 'A warm welcome to all new and returning students! Club introductory meetings will be held next week.' },
+            { date: '2024-09-05', title: 'Website Launch', content: 'SYSTEM: VJC Events website version 1.0 has been successfully deployed. Event registration and club information are now live.' }
+        ];
+
+        // Load news from localStorage, or use default news if none exists
+        const news = JSON.parse(localStorage.getItem('vjcNews')) || defaultNews;
+
+        const commands = {
+            help: `Available commands:
+<span class="text-purple-400">help</span>   - Show this list of commands
+<span class="text-purple-400">ls</span>     - List all news articles
+<span class="text-purple-400">cat &lt;id&gt;</span> - Read a news article (e.g., 'cat 1')
+<span class="text-purple-400">date</span>   - Display the current date
+<span class="text-purple-400">clear</span>  - Clear the terminal screen`,
+            ls: () => news.map((item, index) => `<span class="text-blue-400">[${index}]</span> ${item.date}: ${item.title}`).join('\n'),
+            cat: (args) => {
+                const id = parseInt(args[0]);
+                if (isNaN(id) || id < 0 || id >= news.length) {
+                    return `<span class="text-red-500">Error: Article with ID '${args[0]}' not found.</span>`;
+                }
+                const article = news[id];
+                return `<span class="text-yellow-400">${article.date} - ${article.title}</span>\n\n${article.content}`;
+            },
+            date: () => new Date().toUTCString(),
+            clear: () => {
+                output.innerHTML = '';
+                return '';
+            }
+        };
+
+        const typeEffect = (element, text, speed = 20) => {
+            return new Promise(resolve => {
+                let i = 0;
+                element.innerHTML = '';
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        terminalBody.scrollTop = terminalBody.scrollHeight;
+                        setTimeout(type, speed);
+                    } else {
+                        resolve();
+                    }
+                }
+                type();
+            });
+        };
+
+        const processCommand = async (cmdText) => {
+            const newOutputLine = document.createElement('div');
+            newOutputLine.innerHTML = `<div class="flex items-center"><span class="prompt"></span><span>${cmdText}</span></div>`;
+            output.appendChild(newOutputLine);
+
+            const [command, ...args] = cmdText.trim().split(' ');
+            const responseContainer = document.createElement('div');
+            responseContainer.className = 'whitespace-pre-wrap';
+            output.appendChild(responseContainer);
+
+            let response = `<span class="text-red-500">Error: Command not found: '${command}'. Type 'help' for a list of commands.</span>`;
+            if (commands[command]) {
+                const result = typeof commands[command] === 'function' ? commands[command](args) : commands[command];
+                response = result;
+            }
+
+            if (response) {
+                await typeEffect(responseContainer, response, 5);
+            }
+            
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const cmdText = input.value;
+                input.value = '';
+                processCommand(cmdText);
+            }
+        });
+
+        const initTerminal = async () => {
+            const welcomeMessage = `VJC Events Terminal - v2.0
+Type <span class="text-purple-400">'help'</span> to see available commands.
+Type <span class="text-purple-400">'ls'</span> to list recent news.`;
+            const welcomeContainer = document.createElement('div');
+            welcomeContainer.className = 'whitespace-pre-wrap mb-4';
+            output.appendChild(welcomeContainer);
+            await typeEffect(welcomeContainer, welcomeMessage);
+            input.focus();
+        };
+
+        initTerminal();
+    </script>
+</body>
+</html>
