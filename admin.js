@@ -1,3 +1,14 @@
+// --- Firebase SDK is required in your HTML before this script ---
+// Example (in <head> of admin.html):
+// <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+// <script>
+//    const firebaseConfig = { ... }; // <-- YOUR CONFIG HERE
+//    firebase.initializeApp(firebaseConfig);
+//    const db = firebase.firestore();
+// </script>
+// <script src="admin.js"></script>
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginSection = document.getElementById('login-section');
     const adminPanel = document.getElementById('admin-panel');
@@ -7,27 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-button');
     const clearNewsButton = document.getElementById('clear-news-button');
 
-    // IMPORTANT: This is a simple, insecure password for demonstration.
-    // In a real application, this should be handled by a secure backend.
     const ADMIN_PASSWORD = 'password123';
 
-    // Check if the user is already "logged in" using sessionStorage
-    if (sessionStorage.getItem('isAdmin') === 'true') {
-        showAdminPanel();
-    }
+    if (sessionStorage.getItem('isAdmin') === 'true') showAdminPanel();
 
     function showAdminPanel() {
         loginSection.classList.add('hidden');
         adminPanel.classList.remove('hidden');
     }
-
     function showLogin() {
         loginSection.classList.remove('hidden');
         adminPanel.classList.add('hidden');
         sessionStorage.removeItem('isAdmin');
     }
 
-    // Handle login
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const password = document.getElementById('password').value;
@@ -41,43 +45,43 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.reset();
     });
 
-    // Handle logout
-    logoutButton.addEventListener('click', () => {
-        showLogin();
-    });
+    logoutButton.addEventListener('click', () => showLogin());
 
-    // Handle news article submission
-    newsForm.addEventListener('submit', (e) => {
+    // --- FIRESTORE CODE ---
+    newsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const title = document.getElementById('title').value;
         const content = document.getElementById('content').value;
         const imageUrl = document.getElementById('imageUrl').value;
+        const date = new Date().toISOString().split('T')[0];
 
-        // Get existing news from localStorage or initialize an empty array
-        const news = JSON.parse(localStorage.getItem('vjcNews')) || [];
-        
-        const newArticle = {
-            date: new Date().toISOString().split('T')[0], // Format as YYYY-MM-DD
-            title: title,
-            content: content,
-            imageUrl: imageUrl || '' // Save image URL, default to empty string
-        };
-
-        // Add the new article to the beginning of the array
-        news.unshift(newArticle);
-
-        // Save back to localStorage
-        localStorage.setItem('vjcNews', JSON.stringify(news));
-
-        alert('News article posted successfully!');
-        newsForm.reset();
+        try {
+            await db.collection("news").add({
+                title,
+                content,
+                imageUrl,
+                date,
+                created: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert('News article posted successfully!');
+            newsForm.reset();
+        } catch(err) {
+            alert("Failed to post news: " + err.message);
+        }
     });
 
-    // Handle clearing all news
-    clearNewsButton.addEventListener('click', () => {
+    clearNewsButton.addEventListener('click', async () => {
         if (confirm('Are you sure you want to delete ALL news articles? This cannot be undone.')) {
-            localStorage.removeItem('vjcNews');
-            alert('All news articles have been cleared.');
+            // Delete all news docs from Firestore
+            try {
+                const snap = await db.collection("news").get();
+                const batch = db.batch();
+                snap.forEach(doc => batch.delete(doc.ref));
+                await batch.commit();
+                alert('All news articles have been cleared.');
+            } catch(err) {
+                alert("Failed to clear news: " + err.message);
+            }
         }
     });
 });
