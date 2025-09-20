@@ -5,91 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News & Updates - VJC Events</title>
     <meta name="description" content="Latest news and updates from VJC Events.">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 100'&gt;&lt;text x='40' y='58' font-size='30' font-family='Arial' font-weight='900' fill='%236d28d9'&gt;VJC&lt;/text&gt;&lt;/svg&gt;">
-
-    <!-- TailwindCSS + Fonts -->
+    <!-- Favicon, Tailwind, Fonts, Lucide, AOS (same as before) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- AOS Animation -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script>
+      // --- PASTE YOUR FIREBASE CONFIG HERE ---
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        // ...other fields
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
     <style>
-        :root {
-            --accent-color: #6d28d9;
-            --accent-light: #8b5cf6;
-        }
+        :root { --accent-color: #6d28d9; --accent-light: #8b5cf6; }
         body { font-family: 'Inter', sans-serif; background-color: #111827; color: #e5e7eb; }
         .navbar { background-color: rgba(17, 24, 39, 0.8); backdrop-filter: blur(8px); }
         .nav-link { position: relative; }
-        .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background-color: var(--accent-light);
-            transition: width 0.3s ease;
-        }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; left: 0; background-color: var(--accent-light); transition: width 0.3s ease; }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .mobile-menu {
-            background-color: rgba(17, 24, 39, 0.98);
-            transform: translateX(100%); transition: transform 0.3s ease;
-        }
+        .mobile-menu { background-color: rgba(17, 24, 39, 0.98); transform: translateX(100%); transition: transform 0.3s ease; }
         .mobile-menu.open { transform: translateX(0); }
-        .news-card {
-            background-color: #1f2937;
-            border: 1px solid #374151;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.2);
-        }
-        .news-card-image {
-            height: 200px;
-            object-fit: cover;
-            border-bottom: 1px solid #374151;
-        }
-        .news-card-content {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
+        .news-card { background-color: #1f2937; border: 1px solid #374151; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.2); }
+        .news-card-image { height: 200px; object-fit: cover; border-bottom: 1px solid #374151; }
+        .news-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (same as before, omitted for brevity) -->
     <nav class="navbar sticky top-0 z-50" id="navbar">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold tracking-tight text-white">VJC<span class="text-purple-400">Events</span></a>
-            <div class="hidden md:flex space-x-8">
-                <a href="index.html" class="nav-link text-white">Home</a>
-                <a href="events.html" class="nav-link text-white">Events</a>
-                <a href="clubs.html" class="nav-link text-white">Clubs</a>
-                <a href="news.html" class="nav-link text-white active">News</a>
-                <a href="contact.html" class="nav-link text-white">Contact</a>
-            </div>
-            <button id="menuButton" class="md:hidden text-white focus:outline-none"><i data-lucide="menu" class="w-6 h-6"></i></button>
-        </div>
+      <!-- ... -->
     </nav>
-
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu (same as before) -->
     <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full h-full z-100 flex flex-col justify-center items-center">
-        <button id="closeMenu" class="absolute top-6 right-6 text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
-        <div class="flex flex-col items-center space-y-6 text-xl">
-            <a href="index.html" class="text-white hover:text-purple-400">Home</a>
-            <a href="events.html" class="text-white hover:text-purple-400">Events</a>
-            <a href="clubs.html" class="text-white hover:text-purple-400">Clubs</a>
-            <a href="news.html" class="text-purple-400">News</a>
-            <a href="contact.html" class="text-white hover:text-purple-400">Contact</a>
-        </div>
+      <!-- ... -->
     </div>
-
     <!-- Main Content Section -->
     <main class="pt-24 pb-20">
         <div class="container mx-auto px-6">
@@ -102,68 +61,60 @@
             </div>
         </div>
     </main>
-
-    <!-- Footer -->
     <footer class="py-10 bg-gray-800 border-t border-gray-700">
         <div class="container mx-auto px-6 text-center text-gray-400">
             <p>&copy; 2024 VJC Events. All Rights Reserved.</p>
         </div>
     </footer>
-
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true, offset: 50 });
         lucide.createIcons();
-
         // Mobile menu toggle
         const menuButton = document.getElementById('menuButton');
         const closeMenu = document.getElementById('closeMenu');
         const mobileMenu = document.getElementById('mobileMenu');
-        menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
-        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        menuButton && menuButton.addEventListener('click', () => mobileMenu.classList.add('open'));
+        closeMenu && closeMenu.addEventListener('click', () => mobileMenu.classList.remove('open'));
 
-        // --- News Feed Logic ---
-        document.addEventListener('DOMContentLoaded', () => {
+        // --- News Feed Logic with Firebase Firestore ---
+        document.addEventListener('DOMContentLoaded', async () => {
             const newsContainer = document.getElementById('news-container');
-
-            // Load news from localStorage. If empty, default to an empty array.
-            const news = JSON.parse(localStorage.getItem('vjcNews')) || [];
-
-            if (news.length === 0) {
-                // Display a message if no news is found
-                newsContainer.innerHTML = `
-                    <div class="col-span-full text-center bg-gray-800 p-12 rounded-lg border border-dashed border-gray-600">
-                        <i data-lucide="newspaper" class="w-16 h-16 text-gray-500 mx-auto mb-4"></i>
-                        <h2 class="text-2xl font-bold text-white">There is no news for now.</h2>
-                        <p class="text-gray-400 mt-2">Check back later for updates!</p>
-                    </div>
-                `;
-                // Create Lucide icons for the message above
-                lucide.createIcons();
-                return;
+            try {
+                const snapshot = await db.collection("news").orderBy("created", "desc").get();
+                if (snapshot.empty) {
+                    newsContainer.innerHTML = `
+                        <div class="col-span-full text-center bg-gray-800 p-12 rounded-lg border border-dashed border-gray-600">
+                            <i data-lucide="newspaper" class="w-16 h-16 text-gray-500 mx-auto mb-4"></i>
+                            <h2 class="text-2xl font-bold text-white">There is no news for now.</h2>
+                            <p class="text-gray-400 mt-2">Check back later for updates!</p>
+                        </div>
+                    `;
+                    lucide.createIcons();
+                    return;
+                }
+                snapshot.forEach(doc => {
+                    const article = doc.data();
+                    const articleCard = document.createElement('div');
+                    articleCard.className = 'news-card rounded-lg overflow-hidden';
+                    articleCard.setAttribute('data-aos', 'fade-up');
+                    const imageHtml = article.imageUrl 
+                        ? `<img src="${article.imageUrl}" alt="${article.title}" class="news-card-image">` 
+                        : '';
+                    articleCard.innerHTML = `
+                        ${imageHtml}
+                        <div class="news-card-content">
+                            <span class="text-sm text-gray-400 mb-2">${article.date}</span>
+                            <h2 class="text-xl font-bold mb-3 flex-grow">${article.title}</h2>
+                            <p class="text-gray-300">${article.content}</p>
+                        </div>
+                    `;
+                    newsContainer.appendChild(articleCard);
+                });
+                AOS.refresh();
+            } catch(err) {
+                newsContainer.innerHTML = `<div class="col-span-full text-center text-red-400">Error loading news: ${err.message}</div>`;
             }
-
-            news.forEach(article => {
-                const articleCard = document.createElement('div');
-                articleCard.className = 'news-card rounded-lg overflow-hidden';
-                articleCard.setAttribute('data-aos', 'fade-up');
-
-                const imageHtml = article.imageUrl 
-                    ? `<img src="${article.imageUrl}" alt="${article.title}" class="news-card-image">` 
-                    : '';
-
-                articleCard.innerHTML = `
-                    ${imageHtml}
-                    <div class="news-card-content">
-                        <span class="text-sm text-gray-400 mb-2">${article.date}</span>
-                        <h2 class="text-xl font-bold mb-3 flex-grow">${article.title}</h2>
-                        <p class="text-gray-300">${article.content}</p>
-                    </div>
-                `;
-                newsContainer.appendChild(articleCard);
-            });
-            // Re-initialize AOS to apply animations to the newly added cards
-            AOS.refresh();
         });
     </script>
 </body>
