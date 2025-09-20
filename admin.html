@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - VJC Events</title>
-    <meta name="robots" content="noindex, nofollow"> <!-- Prevents search engines from indexing this page -->
-
+    <meta name="robots" content="noindex, nofollow">
     <!-- TailwindCSS + Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script>
+      // --- PASTE YOUR FIREBASE CONFIG HERE ---
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        // ...other fields
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -44,13 +56,12 @@
             <h1 class="text-3xl font-bold">Admin Panel</h1>
             <button id="logout-button" class="text-sm text-purple-400 hover:underline">Logout</button>
         </div>
-
         <form id="news-form">
             <div class="mb-4">
                 <label for="title" class="block mb-2 text-sm font-medium">Article Title</label>
                 <input type="text" id="title" class="form-input w-full px-3 py-2 rounded-lg" required>
             </div>
-             <div class="mb-4">
+            <div class="mb-4">
                 <label for="imageUrl" class="block mb-2 text-sm font-medium">Image URL (Optional)</label>
                 <input type="text" id="imageUrl" placeholder="https://example.com/image.png" class="form-input w-full px-3 py-2 rounded-lg">
             </div>
@@ -60,14 +71,12 @@
             </div>
             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors">Post News Article</button>
         </form>
-
         <div class="mt-8">
             <h2 class="text-xl font-bold mb-4">Manage News</h2>
             <p class="text-sm text-gray-400 mb-4">This will permanently delete all news articles.</p>
             <button id="clear-news-button" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-lg transition-colors">Clear All News</button>
         </div>
     </div>
-
     <script src="admin.js"></script>
 </body>
 </html>
